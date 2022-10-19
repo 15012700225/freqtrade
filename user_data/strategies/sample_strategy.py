@@ -2,6 +2,7 @@
 # flake8: noqa: F401
 # isort: skip_file
 # --- Do not remove these libs ---
+import logging
 import numpy as np  # noqa
 import pandas as pd  # noqa
 from pandas import DataFrame
@@ -14,6 +15,8 @@ from freqtrade.strategy import (BooleanParameter, CategoricalParameter, DecimalP
 import talib.abstract as ta
 import freqtrade.vendor.qtpylib.indicators as qtpylib
 
+
+logger = logging.getLogger(__name__)
 
 # This class is a sample. Feel free to customize it.
 class SampleStrategy(IStrategy):
@@ -135,6 +138,9 @@ class SampleStrategy(IStrategy):
 
         # Momentum Indicators
         # ------------------------------------
+
+        logger.info("-----populate_indicators-----")
+        logger.info(dataframe)
 
         # ADX
         dataframe['adx'] = ta.ADX(dataframe)
@@ -339,6 +345,7 @@ class SampleStrategy(IStrategy):
                 dataframe['best_bid'] = ob['bids'][0][0]
                 dataframe['best_ask'] = ob['asks'][0][0]
         """
+        logger.info(dataframe)
 
         return dataframe
 
@@ -349,6 +356,8 @@ class SampleStrategy(IStrategy):
         :param metadata: Additional information, like the currently traded pair
         :return: DataFrame with entry columns populated
         """
+        logger.info("-----populate_entry_trend-----")
+        logger.info(dataframe)
         dataframe.loc[
             (
                 # Signal: RSI crosses above 30
@@ -368,7 +377,7 @@ class SampleStrategy(IStrategy):
                 (dataframe['volume'] > 0)  # Make sure Volume is not 0
             ),
             'enter_short'] = 1
-
+        logger.info(dataframe)
         return dataframe
 
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
@@ -378,6 +387,8 @@ class SampleStrategy(IStrategy):
         :param metadata: Additional information, like the currently traded pair
         :return: DataFrame with exit columns populated
         """
+        logger.info("-----populate_exit_trend-----")
+        logger.info(dataframe)
         dataframe.loc[
             (
                 # Signal: RSI crosses above 70
@@ -400,4 +411,5 @@ class SampleStrategy(IStrategy):
             ),
             'exit_short'] = 1
 
+        logger.info(dataframe)
         return dataframe
