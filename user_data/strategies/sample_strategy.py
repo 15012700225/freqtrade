@@ -352,7 +352,7 @@ class SampleStrategy(IStrategy):
         dataframe.loc[
             (
                 # Signal: RSI crosses above 30
-                (qtpylib.crossed_above(dataframe['rsi'], self.buy_rsi.value)) &
+                #(qtpylib.crossed_above(dataframe['rsi'], self.buy_rsi.value)) &
                 (dataframe['tema'] <= dataframe['bb_middleband']) &  # Guard: tema below BB middle
                 (dataframe['tema'] > dataframe['tema'].shift(1)) &  # Guard: tema is raising
                 (dataframe['volume'] > 0)  # Make sure Volume is not 0
@@ -362,7 +362,7 @@ class SampleStrategy(IStrategy):
         dataframe.loc[
             (
                 # Signal: RSI crosses above 70
-                (qtpylib.crossed_above(dataframe['rsi'], self.short_rsi.value)) &
+                #(qtpylib.crossed_above(dataframe['rsi'], self.short_rsi.value)) &
                 (dataframe['tema'] > dataframe['bb_middleband']) &  # Guard: tema above BB middle
                 (dataframe['tema'] < dataframe['tema'].shift(1)) &  # Guard: tema is falling
                 (dataframe['volume'] > 0)  # Make sure Volume is not 0
@@ -381,7 +381,7 @@ class SampleStrategy(IStrategy):
         dataframe.loc[
             (
                 # Signal: RSI crosses above 70
-                (qtpylib.crossed_above(dataframe['rsi'], self.sell_rsi.value)) &
+                #(qtpylib.crossed_above(dataframe['rsi'], self.sell_rsi.value)) &
                 (dataframe['tema'] > dataframe['bb_middleband']) &  # Guard: tema above BB middle
                 (dataframe['tema'] < dataframe['tema'].shift(1)) &  # Guard: tema is falling
                 (dataframe['volume'] > 0)  # Make sure Volume is not 0
@@ -392,7 +392,7 @@ class SampleStrategy(IStrategy):
         dataframe.loc[
             (
                 # Signal: RSI crosses above 30
-                (qtpylib.crossed_above(dataframe['rsi'], self.exit_short_rsi.value)) &
+                #(qtpylib.crossed_above(dataframe['rsi'], self.exit_short_rsi.value)) &
                 # Guard: tema below BB middle
                 (dataframe['tema'] <= dataframe['bb_middleband']) &
                 (dataframe['tema'] > dataframe['tema'].shift(1)) &  # Guard: tema is raising
